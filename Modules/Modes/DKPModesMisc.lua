@@ -167,7 +167,7 @@ function CommDKP:DKPModes_Misc()
 	--Misc Options Container
 	f.MiscContainer = CommDKP:CreateContainer(f, "MiscContainer", L["MISCSETTINGS"])
     f.MiscContainer:SetPoint("TOPLEFT", f.AutoAwardContainer, "BOTTOMLEFT", 0, -20)
-    f.MiscContainer:SetSize(175, 90)
+    f.MiscContainer:SetSize(175, 110)
 
 		-- Standby On Boss Kill Checkbox
 		f.MiscContainer.Standby = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate");
@@ -214,16 +214,46 @@ function CommDKP:DKPModes_Misc()
 			GameTooltip:Hide()
 		end)
 
-		-- Broadcast Bid Table to Raid
+		-- Broadcast Highest Bid 
+		f.MiscContainer.BroadcastHighestBid = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate");
+		f.MiscContainer.BroadcastHighestBid:SetChecked(core.DB.modes.BroadcastHighestBid)
+		f.MiscContainer.BroadcastHighestBid:SetScale(0.6);
+		f.MiscContainer.BroadcastHighestBid.text:SetText("  |cff5151de"..L["BROADCASTHIGHESTBID"].."|r");
+		f.MiscContainer.BroadcastHighestBid.text:SetScale(1.5);
+		f.MiscContainer.BroadcastHighestBid.text:SetFontObject("CommDKPSmallLeft")
+		f.MiscContainer.BroadcastHighestBid:SetPoint("TOP", f.MiscContainer.AnnounceAward, "BOTTOM", 0, 0);
+		f.MiscContainer.BroadcastHighestBid:SetScript("OnClick", function(self)
+			core.DB.modes.BroadcastHighestBid = self:GetChecked();
+			if self:GetChecked() == false then
+				f.MiscContainer.BroadcastBids:SetChecked(false)
+				core.DB.modes.BroadcastBids = false;
+			end
+			PlaySound(808);
+		end)
+		f.MiscContainer.BroadcastHighestBid:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+			GameTooltip:SetText(L["BROADCASTHIGHESTBID"], 0.25, 0.75, 0.90, 1, true); --TODO 
+			GameTooltip:AddLine(L["BROADCASTHIGHESTBIDTTDESC"], 1.0, 1.0, 1.0, true); --TODO
+			GameTooltip:Show();
+		end)
+		f.MiscContainer.BroadcastHighestBid:SetScript("OnLeave", function(self)
+			GameTooltip:Hide()
+		end)
+
+		-- Broadcast Bid Table (all Bids and Names)
 		f.MiscContainer.BroadcastBids = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate");
 		f.MiscContainer.BroadcastBids:SetChecked(core.DB.modes.BroadcastBids)
 		f.MiscContainer.BroadcastBids:SetScale(0.6);
 		f.MiscContainer.BroadcastBids.text:SetText("  |cff5151de"..L["BROADCASTBIDS"].."|r");
 		f.MiscContainer.BroadcastBids.text:SetScale(1.5);
 		f.MiscContainer.BroadcastBids.text:SetFontObject("CommDKPSmallLeft")
-		f.MiscContainer.BroadcastBids:SetPoint("TOP", f.MiscContainer.AnnounceAward, "BOTTOM", 0, 0);
+		f.MiscContainer.BroadcastBids:SetPoint("TOP", f.MiscContainer.BroadcastHighestBid, "BOTTOM", 0, 0);
 		f.MiscContainer.BroadcastBids:SetScript("OnClick", function(self)
 			core.DB.modes.BroadcastBids = self:GetChecked();
+			if self:GetChecked() == true then
+				f.MiscContainer.BroadcastHighestBid:SetChecked(true)
+				core.DB.modes.BroadcastHighestBid = true;
+			end
 			PlaySound(808);
 		end)
 		f.MiscContainer.BroadcastBids:SetScript("OnEnter", function(self)

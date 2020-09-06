@@ -161,6 +161,8 @@ if GetLocale() == "deDE" then
     BOSSKILLBONUSTTDESC = "Bonus für das Töten eines Boss.",
     BRACERS = "Armschienen",
     BROADCAST = "Übertragung",
+    BROADCASTHIGHESTBID = "Broadcast nur höchstes Gebot",
+    BROADCASTHIGHESTBIDTTDESC = "Wenn diese Option aktiviert ist, wird nur das höchste ohne den Spielernamen an den Schlachtzug verteilt und in der Gebotsoberfläche aktualisiert. Deaktivieren Sie diese Option, um die Höchstgebote vor dem Schlachtzug zu verbergen.",
     BROADCASTBIDS = "Broadcast-Gebote",
     BROADCASTBIDSTTDESC = "Wenn diese Option aktiviert ist, werden allen Teilnehmern des Schlachtzugs alle abgegebenen Gebote in ihrer Gebotsoberfläche angezeigt. Deaktivieren Sie diese Option, wenn Sie nicht möchten, dass die Spieler die Gebote aller Spieler sehen.",
     BROADCASTDKPTABLECONF = "Möchten Sie wirklich alle Tabellen übertragen? Dadurch wird Ihre Tabelle NICHT mit anderen zusammengeführt. Es wird die gesamten Gilden-Tabellen mit exakten Kopien von Ihnen vollständig überschreiben.",
